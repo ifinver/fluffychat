@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:fluffychat/yanxun/constants.dart';
+import 'package:fluffychat/yanxun/events.dart';
 import 'package:matrix/matrix.dart';
 
 abstract class AppConfig {
@@ -7,7 +9,7 @@ abstract class AppConfig {
   static String get applicationName => _applicationName;
   static String? _applicationWelcomeMessage;
   static String? get applicationWelcomeMessage => _applicationWelcomeMessage;
-  static String _defaultHomeserver = 'matrix.org';
+  static String _defaultHomeserver = 'yanxun.org';
   static String get defaultHomeserver => _defaultHomeserver;
   static double fontSizeFactor = 1;
   static const Color chatColor = primaryColor;
@@ -105,5 +107,7 @@ abstract class AppConfig {
     if (json['hide_unknown_events'] is bool) {
       hideUnknownEvents = json['hide_unknown_events'];
     }
+
+    eventBus.fire(EventHomeServerUrlLoaded());
   }
 }

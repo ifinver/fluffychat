@@ -1,7 +1,7 @@
 {
   "application_name": "雁訊",
   "application_welcome_message": null,
-  "default_homeserver": "api.yanxun.org",
+  "default_homeserver": "yanxun.org",
   "web_base_url": "https://yanxun.org",
   "privacy_url": "https://yanxun.org/en/privacy.html",
   "render_html": false,
