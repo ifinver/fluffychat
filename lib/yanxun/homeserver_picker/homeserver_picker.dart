@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:fluffychat/yanxun/constants.dart';
-import 'package:fluffychat/yanxun/events.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -36,7 +35,7 @@ class HomeserverPicker extends StatefulWidget {
 class HomeserverPickerController extends State<HomeserverPicker> {
   bool isLoading = false;
   final TextEditingController homeserverController = TextEditingController(
-    text: "加載中...",
+    text: AppConfig.defaultHomeserver,
   );
 
   String? error;
@@ -161,24 +160,11 @@ class HomeserverPickerController extends State<HomeserverPicker> {
 
   void login() => context.go('/home/login');
 
-  StreamSubscription? _subsHomeServerUrl;
-
   @override
   void initState() {
-    _subsHomeServerUrl =
-        eventBus.on<EventHomeServerUrlLoaded>().listen((event) {
-      homeserverController.text = AppConfig.defaultHomeserver;
-      checkHomeserverAction();
-    });
     _checkTorBrowser();
     super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback(checkHomeserverAction);
-  }
-
-  @override
-  void dispose() {
-    _subsHomeServerUrl?.cancel();
-    super.dispose();
+    WidgetsBinding.instance.addPostFrameCallback(checkHomeserverAction);
   }
 
   @override

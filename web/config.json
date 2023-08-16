@@ -1,13 +1,7 @@
 {
   "application_name": "雁訊",
   "application_welcome_message": null,
-  "default_homeserver": "yanxun.org",
   "render_html": false,
   "hide_redacted_events": false,
-  "hide_unknown_events": false,
-  "homeserver":[
-    "161533.xyz",
-    "161535.xyz",
-    "161536.xyz"
-  ]
+  "hide_unknown_events": false
 }

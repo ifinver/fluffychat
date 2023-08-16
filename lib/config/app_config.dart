@@ -1,10 +1,8 @@
 import 'dart:ui';
 
-import 'package:dio/dio.dart';
 import 'package:fluffychat/yanxun/constants.dart';
 import 'package:fluffychat/yanxun/events.dart';
 import 'package:matrix/matrix.dart';
-import 'package:http/http.dart' as http;
 
 abstract class AppConfig {
   static String _applicationName = '雁訊';
@@ -13,9 +11,12 @@ abstract class AppConfig {
   static String? _applicationWelcomeMessage;
 
   static String? get applicationWelcomeMessage => _applicationWelcomeMessage;
-  static String _defaultHomeserver = 'https://matrix.yanxun.org';
-
-  static String get defaultHomeserver => _defaultHomeserver;
+  // static String _defaultHomeserver = '#';
+  static String get defaultHomeserver {
+    var u = Uri.base.toString();
+    var endIdx = u.indexOf("/",8);
+    return u.substring(0,endIdx);
+  }
   static double fontSizeFactor = 1;
   static const Color chatColor = primaryColor;
   static Color? colorSchemeSeed = primaryColor;
@@ -79,62 +80,6 @@ abstract class AppConfig {
   static const double borderRadius = 16.0;
   static const double columnWidth = 360.0;
 
-  static Future<String> pickHomeServer(List<dynamic> list) async {
-    printL("call: config pickHomeServer");
-    // for (int i = 0; i < list.length; i++) {
-      var url = list[0];
-      if (url is String) {
-        var toCheck = url;
-        if (!url.contains("http")) {
-          toCheck = 'https://$url';
-        }
-
-        printL("here0");
-        final dio = Dio();
-        try {
-          var response = await dio.get(toCheck);
-          printL("here1");
-        } on DioException catch (e) {
-          printL("here2");
-          printL(e);
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx and is also not 304.
-          if (e.response != null) {
-            printL(e.response);
-          } else {
-            // Something happened in setting up or sending the request that triggered an Error
-            print(e.message);
-          }
-        }
-        catch(err){
-          printL("here3");
-          printL(err);
-        }
-        // await http.post(Uri.parse(toCheck)).then((resp) {
-        //   printL("here0.1");
-        //   final c = resp.statusCode;
-        //   printL("here0.2:${c}");
-        //   if (resp.statusCode >= 400) {
-        //     printL("error:\n${resp.body}");
-        //     //出錯了，下一個
-        //   } else {
-        //     if (resp.statusCode == 301 || resp.statusCode == 302) {
-        //       printL("301:\n${resp.body}");
-        //       return resp.body;
-        //     } else {
-        //       printL("${resp.statusCode}\n${resp.body}");
-        //       return url;
-        //     }
-        //   }
-        // }).catchError((err) {
-        //   printL("here0.5");
-        //   printL(err);
-        // });
-      }
-    // }
-    return "";
-  }
-
   static void loadFromJson(Map<String, dynamic> json) async {
     printL("call: config loadFromJson");
     if (json['chat_color'] != null) {
@@ -153,9 +98,9 @@ abstract class AppConfig {
     if (json['application_welcome_message'] is String) {
       _applicationWelcomeMessage = json['application_welcome_message'];
     }
-    if (json['homeserver'] is List) {
-      _defaultHomeserver = await pickHomeServer(json['homeserver']);
-    }
+    // if (json['homeserver'] is List) {
+    //   _defaultHomeserver = await pickHomeServer(json['homeserver']);
+    // }
     // if (json['default_homeserver'] is String) {
     //   _defaultHomeserver = json['default_homeserver'];
     // }
@@ -174,7 +119,5 @@ abstract class AppConfig {
     if (json['hide_unknown_events'] is bool) {
       hideUnknownEvents = json['hide_unknown_events'];
     }
-
-    eventBus.fire(EventHomeServerUrlLoaded());
   }
 }
