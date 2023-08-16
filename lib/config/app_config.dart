@@ -14,8 +14,15 @@ abstract class AppConfig {
   // static String _defaultHomeserver = '#';
   static String get defaultHomeserver {
     var u = Uri.base.toString();
+    var sIdx = u.indexOf("//");
+    if(sIdx == -1){
+      sIdx = 0;
+    }
     var endIdx = u.indexOf("/",8);
-    return u.substring(0,endIdx);
+    if(endIdx == -1){
+      endIdx = u.length - 1;
+    }
+    return u.substring(sIdx,endIdx);
   }
   static double fontSizeFactor = 1;
   static const Color chatColor = primaryColor;
