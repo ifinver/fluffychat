@@ -69,6 +69,7 @@ class HomeserverPickerController extends State<HomeserverPicker> {
   /// well-known information and forwards to the login page depending on the
   /// login type.
   Future<void> checkHomeserverAction([_]) async {
+    printL("call: checkHomeserverAction");
     homeserverController.text =
         homeserverController.text.trim().toLowerCase().replaceAll(' ', '-');
     if (homeserverController.text == _lastCheckedUrl) return;
@@ -171,7 +172,7 @@ class HomeserverPickerController extends State<HomeserverPicker> {
     });
     _checkTorBrowser();
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback(checkHomeserverAction);
+    // WidgetsBinding.instance.addPostFrameCallback(checkHomeserverAction);
   }
 
   @override
