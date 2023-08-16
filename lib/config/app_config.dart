@@ -17,6 +17,8 @@ abstract class AppConfig {
     var sIdx = u.indexOf("//");
     if(sIdx == -1){
       sIdx = 0;
+    }else{
+      sIdx += 2;
     }
     var endIdx = u.indexOf("/",8);
     if(endIdx == -1){
