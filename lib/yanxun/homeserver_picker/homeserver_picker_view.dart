@@ -19,14 +19,10 @@ class HomeserverPickerView extends StatelessWidget {
     final identityProviders = controller.identityProviders;
     final errorText = controller.error;
     return LoginScaffold(
-      appBar: AppBar(
-        titleSpacing: 12,
-        automaticallyImplyLeading: false,
-        title: HomeserverAppBar(controller: controller),
-      ),
       body: SafeArea(
         child: Column(
           children: [
+            const SizedBox(height: 15,),
             // display a prominent banner to import session for TOR browser
             // users. This feature is just some UX sugar as TOR users are
             // usually forced to logout as TOR browser is non-persistent
