@@ -1,22 +1,22 @@
 {
-    "name": "FluffyChat",
-    "short_name": "FluffyChat",
+    "name": "雁訊",
+    "short_name": "雁訊",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "The cutest messenger in the Matrix network",
+    "description": "基於Matrix的聊天軟件",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
         {
             "src": "icons/Icon-192.png",
-            "sizes": "192x192",
+            "sizes": "192x212",
             "type": "image/png"
         },
         {
             "src": "icons/Icon-512.png",
-            "sizes": "512x512",
+            "sizes": "512x565",
             "type": "image/png"
         }
     ]
