@@ -66,9 +66,9 @@ class RegisterController extends State<Register> {
       if(exception.requireAdditionalAuthentication) {
         //{flows: [{stages: [m.login.dummy]}], completed: [], params: {}, session: H0pk61l5Hi2JzYdmxwEDKwRK}
         final flows = exception.raw["flows"] as List<dynamic>;
-        final flow0 = flows[0] as Map<String, Object>;
-        final stages = flow0["stages"] as List<String>;
-        final stage = stages[0];
+        final flow0 = flows[0] as Map<String, Object?>;
+        final stages = flow0["stages"] as List<dynamic>;
+        final stage = stages[0] as String;
         final session = exception.raw["session"] as String;
         try {
           await matrix.getLoginClient().register(

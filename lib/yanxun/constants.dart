@@ -44,7 +44,7 @@ Future<void> initDatabase() async {
         db.createObjectStore(_dbName, autoIncrement: true);
       },
   );
-  printL("database init done.");
+  // printL("database init done.");
 }
 
 Future saveToDb(String k, String value) async {
