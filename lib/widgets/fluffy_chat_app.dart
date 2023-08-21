@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:fluffychat/generated/l10n.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matrix/matrix.dart';
 
@@ -40,7 +41,12 @@ class FluffyChatApp extends StatelessWidget {
         darkTheme:
             FluffyThemes.buildTheme(context, Brightness.dark, primaryColor),
         scrollBehavior: CustomScrollBehavior(),
-        localizationsDelegates: const [L10n.delegate],
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          L10n.delegate
+        ],
         supportedLocales: L10n.delegate.supportedLocales,
         routerConfig: router,
         builder: (context, child) => Navigator(

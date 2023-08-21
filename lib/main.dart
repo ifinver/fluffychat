@@ -13,7 +13,7 @@ import 'widgets/fluffy_chat_app.dart';
 import 'widgets/lock_screen.dart';
 
 void main() async {
-  Logs().i('Welcome to FluffyChat');
+  Logs().i('Welcome to 雁訊');
 
   // Our background push shared isolate accesses flutter-internal things very early in the startup proccess
   // To make sure that the parts of flutter needed are started up already, we need to ensure that the
