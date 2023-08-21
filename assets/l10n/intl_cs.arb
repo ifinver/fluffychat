@@ -1829,7 +1829,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "unknownEvent": "Neznámá událost „{type}“",
   "@unknownEvent": {
     "type": "text",
     "placeholders": {

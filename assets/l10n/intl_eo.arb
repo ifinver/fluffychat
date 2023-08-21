@@ -1791,7 +1791,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "unknownEvent": "Nekonata evento «{type}»",
     "@unknownEvent": {
         "type": "text",
         "placeholders": {

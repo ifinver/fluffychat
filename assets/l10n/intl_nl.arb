@@ -1832,7 +1832,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "unknownEvent": "Onbekend evenement '{type}'",
   "@unknownEvent": {
     "type": "text",
     "placeholders": {

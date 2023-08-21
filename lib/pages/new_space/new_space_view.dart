@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:fluffychat/generated/l10n.dart';
 
 import 'package:fluffychat/widgets/layouts/max_width_body.dart';
 import 'new_space.dart';

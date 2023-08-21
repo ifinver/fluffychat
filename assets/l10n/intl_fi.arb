@@ -1674,7 +1674,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "unknownEvent": "Tuntematon tapahtuma '{type}'",
   "@unknownEvent": {
     "type": "text",
     "placeholders": {

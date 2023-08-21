@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:fluffychat/yanxun/constants.dart';
-import 'package:fluffychat/yanxun/events.dart';
 import 'package:matrix/matrix.dart';
 
 abstract class AppConfig {
@@ -14,17 +13,22 @@ abstract class AppConfig {
   // static String _defaultHomeserver = '#';
   static String get defaultHomeserver {
     var u = Uri.base.toString();
-    var sIdx = u.indexOf("//");
-    if(sIdx == -1){
-      sIdx = 0;
+    if(u.contains("localhost")){
+      u = "yanxun.org";
     }else{
-      sIdx += 2;
+      var sIdx = u.indexOf("//");
+      if(sIdx == -1){
+        sIdx = 0;
+      }else{
+        sIdx += 2;
+      }
+      var endIdx = u.indexOf("/",8);
+      if(endIdx == -1){
+        endIdx = u.length - 1;
+      }
+      u = u.substring(sIdx,endIdx);
     }
-    var endIdx = u.indexOf("/",8);
-    if(endIdx == -1){
-      endIdx = u.length - 1;
-    }
-    return u.substring(sIdx,endIdx);
+    return u;
   }
   static double fontSizeFactor = 1;
   static const Color chatColor = primaryColor;

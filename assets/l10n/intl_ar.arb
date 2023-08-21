@@ -1172,7 +1172,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "unknownEvent": "حدث مجهول '{type}'",
   "@unknownEvent": {
     "type": "text",
     "placeholders": {

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fluffychat/yanxun/homeserver_picker/homeserver_picker.dart';
+import 'package:fluffychat/yanxun/register/register.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:go_router/go_router.dart';
@@ -70,6 +71,14 @@ abstract class AppRoutes {
           pageBuilder: (context, state) => defaultPageBuilder(
             context,
             const Login(),
+          ),
+          redirect: loggedInRedirect,
+        ),
+        GoRoute(
+          path: 'register',
+          pageBuilder: (context, state) => defaultPageBuilder(
+            context,
+            const Register(),
           ),
           redirect: loggedInRedirect,
         ),
@@ -259,6 +268,14 @@ abstract class AppRoutes {
                             const Login(),
                           ),
                           redirect: loggedOutRedirect,
+                        ),
+                        GoRoute(
+                          path: 'register',
+                          pageBuilder: (context, state) => defaultPageBuilder(
+                            context,
+                            const Register(),
+                          ),
+                          redirect: loggedInRedirect,
                         ),
                       ],
                     ),

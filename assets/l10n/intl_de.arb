@@ -1816,7 +1816,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "unknownEvent": "Unbekanntes Ereignis '{type}'",
   "@unknownEvent": {
     "type": "text",
     "placeholders": {

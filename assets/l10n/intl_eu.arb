@@ -1129,7 +1129,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "unknownEvent": "'{type}' gertaera ezezaguna",
   "@unknownEvent": {
     "type": "text",
     "placeholders": {

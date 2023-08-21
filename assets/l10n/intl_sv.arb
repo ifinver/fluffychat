@@ -1516,7 +1516,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "unknownEvent": "Okänd händelse '{type}'",
     "@unknownEvent": {
         "type": "text",
         "placeholders": {

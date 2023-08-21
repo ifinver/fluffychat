@@ -1718,7 +1718,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "unknownEvent": "Непознат догађај „{type}“",
     "@unknownEvent": {
         "type": "text",
         "placeholders": {

@@ -1612,7 +1612,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "unknownEvent": "未知のイベント'{type}'",
     "@unknownEvent": {
         "type": "text",
         "placeholders": {

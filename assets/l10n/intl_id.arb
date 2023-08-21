@@ -1274,7 +1274,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "unknownEvent": "Peristiwa tidak dikenal '{type}'",
   "@unknownEvent": {
     "type": "text",
     "placeholders": {

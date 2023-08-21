@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:fluffychat/generated/l10n.dart';
 
 import 'package:fluffychat/config/app_config.dart';
 import 'package:fluffychat/widgets/layouts/login_scaffold.dart';
@@ -130,7 +130,13 @@ class HomeserverPickerView extends StatelessWidget {
                           _LoginButton(
                             onPressed: controller.login,
                             icon: const Icon(Icons.login_outlined),
-                            label: L10n.of(context)!.signInWithPassword,
+                            label: L10n.of(context).signInWithPassword,
+                          ),
+                        if (controller.supportsPasswordLogin)
+                          _LoginButton(
+                            onPressed: controller.register,
+                            icon: const Icon(Icons.app_registration_outlined),
+                            label: L10n.of(context).registerWithPassword,
                           ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 12),

@@ -1503,7 +1503,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "unknownEvent": "Ukjent hendelse «{type}»",
     "@unknownEvent": {
         "type": "text",
         "placeholders": {

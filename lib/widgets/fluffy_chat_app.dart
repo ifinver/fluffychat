@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:fluffychat/generated/l10n.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matrix/matrix.dart';
 
@@ -40,8 +40,8 @@ class FluffyChatApp extends StatelessWidget {
         darkTheme:
             FluffyThemes.buildTheme(context, Brightness.dark, primaryColor),
         scrollBehavior: CustomScrollBehavior(),
-        localizationsDelegates: L10n.localizationsDelegates,
-        supportedLocales: L10n.supportedLocales,
+        localizationsDelegates: const [L10n.delegate],
+        supportedLocales: L10n.delegate.supportedLocales,
         routerConfig: router,
         builder: (context, child) => Navigator(
           onGenerateRoute: (_) => MaterialPageRoute(

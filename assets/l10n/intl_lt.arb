@@ -1581,7 +1581,6 @@
             "targetName": {}
         }
     },
-    "unknownEvent": "Nežinomas įvykis '{type}'",
     "@unknownEvent": {
         "type": "text",
         "placeholders": {

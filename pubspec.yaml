@@ -57,6 +57,7 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   http: ^0.13.4
+  idb_shim: ^2.3.1
   image_picker: ^1.0.0
   intl: any
   just_audio: ^0.9.30
@@ -68,7 +69,7 @@ dependencies:
   native_imaging: ^0.1.0
   package_info_plus: ^4.0.0
   pasteboard: ^0.2.0
-  path_provider: ^2.0.9
+  path_provider: ^2.1.0
   permission_handler: ^10.0.0
   pin_code_text_field: ^1.8.0
   provider: ^6.0.2
@@ -87,6 +88,7 @@ dependencies:
   unifiedpush: ^5.0.0
   universal_html: ^2.0.8
   url_launcher: ^6.0.20
+  uuid: ^3.0.7
   vibration: ^1.7.4-nullsafety.0
   video_compress: ^3.1.1
   video_player: ^2.2.18
@@ -165,3 +167,15 @@ dependency_overrides:
       url: https://github.com/chandrabezzo/wakelock.git
       ref: main
       path: wakelock_windows/
+flutter_intl:
+  enabled: true
+  arb-dir: assets/l10n
+  template-arb-file: intl_en.arb
+  output-localization-file: l10n.dart
+  output-class: L10n
+  preferred-supported-locales: [ "en" ]
+  class_name: L10n
+  main_locale: en
+  arb_dir: assets/l10n
+  output_dir: .dart_tool/flutter_gen/gen_l10n
+  output-dir: .dart_tool/flutter_gen/gen_l10n

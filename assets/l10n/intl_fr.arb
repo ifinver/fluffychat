@@ -1833,7 +1833,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "unknownEvent": "Événement de type inconnu : '{type}'",
     "@unknownEvent": {
         "type": "text",
         "placeholders": {

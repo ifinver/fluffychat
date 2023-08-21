@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_app_lock/flutter_app_lock.dart';
-import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:fluffychat/generated/l10n.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,8 +27,8 @@ class LockScreenState extends State<LockScreen> {
     return MaterialApp(
       theme: FluffyThemes.buildTheme(context, Brightness.light),
       darkTheme: FluffyThemes.buildTheme(context, Brightness.dark),
-      localizationsDelegates: L10n.localizationsDelegates,
-      supportedLocales: L10n.supportedLocales,
+      localizationsDelegates: const [L10n.delegate],
+      supportedLocales: L10n.delegate.supportedLocales,
       home: Builder(
         builder: (context) => LoginScaffold(
           appBar: AppBar(

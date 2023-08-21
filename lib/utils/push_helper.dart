@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:fluffychat/generated/l10n.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:matrix/matrix.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,7 +44,11 @@ Future<void> pushHelper(
       onDidReceiveBackgroundNotificationResponse: onSelectNotification,
     );
 
-    l10n ??= lookupL10n(const Locale('en'));
+    try {
+      l10n ??= L10n.current;
+    }catch(e){
+      l10n ??= await L10n.load(const Locale('en'));
+    }
     flutterLocalNotificationsPlugin.show(
       0,
       l10n.newMessageInFluffyChat,

@@ -1779,7 +1779,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "unknownEvent": "Nepoznat događaj „{type}”",
   "@unknownEvent": {
     "type": "text",
     "placeholders": {

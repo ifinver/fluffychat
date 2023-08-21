@@ -2275,7 +2275,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "unknownEvent": "رویداد ناشناخته «{type}»",
   "@unknownEvent": {
     "type": "text",
     "placeholders": {

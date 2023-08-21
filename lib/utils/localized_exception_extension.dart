@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:fluffychat/generated/l10n.dart';
 import 'package:matrix/matrix.dart';
 
 import 'uia_request_manager.dart';
@@ -33,9 +33,7 @@ extension LocalizedExceptionExtension on Object {
           .toString()
           .replaceAll('{', '"')
           .replaceAll('}', '"');
-      return L10n.of(context)!.badServerVersionsException(
-        serverVersions,
-        supportedVersions,
+      return L10n.of(context).badServerVersionsException(
         serverVersions,
         supportedVersions,
       );
@@ -51,14 +49,13 @@ extension LocalizedExceptionExtension on Object {
           .toString()
           .replaceAll('{', '"')
           .replaceAll('}', '"');
-      return L10n.of(context)!.badServerLoginTypesException(
+      return L10n.of(context).badServerLoginTypesException(
         serverVersions,
-        supportedVersions,
         supportedVersions,
       );
     }
     if (this is MatrixConnectionException || this is SocketException) {
-      return L10n.of(context)!.noConnectionToTheServer;
+      return L10n.of(context).noConnectionToTheServer;
     }
     if (this is String) return toString();
     if (this is UiaException) return toString();

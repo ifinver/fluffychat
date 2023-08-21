@@ -1085,7 +1085,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "unknownEvent": "Невідома подія '{type}'",
   "@unknownEvent": {
     "type": "text",
     "placeholders": {

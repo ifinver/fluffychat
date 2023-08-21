@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_gen/gen_l10n/l10n.dart';
+import 'package:fluffychat/generated/l10n.dart';
 
 import 'package:fluffychat/widgets/layouts/login_scaffold.dart';
 import 'package:fluffychat/widgets/matrix.dart';
@@ -19,12 +19,8 @@ class LoginView extends StatelessWidget {
         automaticallyImplyLeading: !controller.loading,
         centerTitle: true,
         title: Text(
-          L10n.of(context)!.logInTo(
-            Matrix.of(context)
-                .getLoginClient()
-                .homeserver
-                .toString()
-                .replaceFirst('https://', ''),
+          L10n.of(context).logInTo(
+            "雁訊",
           ),
         ),
       ),

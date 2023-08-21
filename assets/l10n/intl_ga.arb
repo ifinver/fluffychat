@@ -1989,7 +1989,6 @@
             "username": {}
         }
     },
-    "unknownEvent": "Imeacht anaithnid '{type}'",
     "@unknownEvent": {
         "type": "text",
         "placeholders": {

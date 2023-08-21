@@ -1829,7 +1829,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "unknownEvent": "Tundmatu sündmuse tüüp „{type}“",
   "@unknownEvent": {
     "type": "text",
     "placeholders": {

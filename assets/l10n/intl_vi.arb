@@ -416,7 +416,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "badServerVersionsException": "Máy chủ nhà hỗ trợ Spec phiên bản:\n{serverVerions}\nNhưng ứng dụng này chỉ hỗ trợ {supportedVersions}",
     "@badServerVersionsException": {
         "type": "text",
         "placeholders": {

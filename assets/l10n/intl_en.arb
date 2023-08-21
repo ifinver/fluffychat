@@ -1197,6 +1197,13 @@
             "homeserver": {}
         }
     },
+    "registerTo": "register to {homeserver}",
+    "@registerTo": {
+        "type": "text",
+        "placeholders": {
+            "homeserver": {}
+        }
+    },
     "loginWithOneClick": "Sign in with one click",
     "@loginWithOneClick": {},
     "logout": "Logout",
@@ -2005,7 +2012,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "unknownEvent": "Unknown event '{type}'",
     "@unknownEvent": {
         "type": "text",
         "placeholders": {
@@ -2312,7 +2318,7 @@
     "@videoCallsBetaWarning": {},
     "experimentalVideoCalls": "Experimental video calls",
     "@experimentalVideoCalls": {},
-    "emailOrUsername": "Email or username",
+    "emailOrUsername": "username",
     "@emailOrUsername": {},
     "indexedDbErrorTitle": "Private mode issues",
     "@indexedDbErrorTitle": {},
@@ -2499,6 +2505,7 @@
     "reportErrorDescription": "Oh no. Something went wrong. Please try again later. If you want, you can report the bug to the developers.",
     "report": "report",
     "signInWithPassword": "Sign in with password",
+    "registerWithPassword": "Register with password",
     "continueWith": "Continue with:",
     "pleaseTryAgainLaterOrChooseDifferentServer": "Please try again later or choose a different server.",
     "signInWith": "Sign in with {provider}",

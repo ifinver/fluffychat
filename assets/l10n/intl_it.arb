@@ -1594,7 +1594,6 @@
         "type": "text",
         "placeholders": {}
     },
-    "unknownEvent": "Evento sconosciuto «{tipo}»",
     "@unknownEvent": {
         "type": "text",
         "placeholders": {

@@ -1833,7 +1833,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "unknownEvent": "Bilinmeyen etkinlik '{type}'",
   "@unknownEvent": {
     "type": "text",
     "placeholders": {

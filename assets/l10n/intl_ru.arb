@@ -1829,7 +1829,6 @@
     "type": "text",
     "placeholders": {}
   },
-  "unknownEvent": "Неизвестное событие '{type}'",
   "@unknownEvent": {
     "type": "text",
     "placeholders": {
