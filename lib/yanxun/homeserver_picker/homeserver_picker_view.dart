@@ -59,10 +59,10 @@ class HomeserverPickerView extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: FluffyThemes.isColumnMode(context)
                               ? Image.asset(
-                                  'assets/info-logo.png',
+                                  'assets/info-logo-y.png',
                                   height: 96,
                                 )
-                              : Image.asset('assets/banner_transparent.png'),
+                              : Image.asset('assets/banner_transparent-y.png'),
                         ),
                         const SizedBox(height: 12),
                         if (errorText != null) ...[
