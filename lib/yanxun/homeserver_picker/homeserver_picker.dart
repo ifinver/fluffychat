@@ -65,7 +65,7 @@ class HomeserverPickerController extends State<HomeserverPicker> {
     throw Exception('http error response');
   }
 
-  Future<DiscoveryInformation> getWellknown(Uri homeServer) async {
+  Future<DiscoveryInformation> getWellKnownDynamic(Uri homeServer) async {
     final httpClient = PlatformInfos.isAndroid ? CustomHttpClient.createHTTPClient() : http.Client();
     final requestUri = Uri(path: '.well-known/dynamic/client');
     final request = http.Request('GET', homeServer.resolveUri(requestUri));
@@ -92,7 +92,7 @@ class HomeserverPickerController extends State<HomeserverPicker> {
         // Look up well known
         DiscoveryInformation? wellKnown;
         try {
-          wellKnown = await getWellknown(homeServer);
+          wellKnown = await getWellKnownDynamic(homeServer);
           client.homeserver = wellKnown.mHomeserver.baseUrl.stripTrailingSlash();
           Logs().i('home server: ${client.homeserver}');
         } catch (e) {
