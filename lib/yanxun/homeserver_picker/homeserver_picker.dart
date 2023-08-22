@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:fluffychat/utils/custom_http_client.dart';
 import 'package:fluffychat/yanxun/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:collection/collection.dart';
@@ -34,9 +37,6 @@ class HomeserverPicker extends StatefulWidget {
 
 class HomeserverPickerController extends State<HomeserverPicker> {
   bool isLoading = false;
-  final TextEditingController homeserverController = TextEditingController(
-    text: AppConfig.defaultHomeserver,
-  );
 
   String? error;
 
@@ -61,35 +61,43 @@ class HomeserverPickerController extends State<HomeserverPicker> {
     isTorBrowser = isTor;
   }
 
-  String? _lastCheckedUrl;
+  Never unexpectedResponse(http.BaseResponse response, Uint8List body) {
+    throw Exception('http error response');
+  }
 
-  /// Starts an analysis of the given homeserver. It uses the current domain and
-  /// makes sure that it is prefixed with https. Then it searches for the
-  /// well-known information and forwards to the login page depending on the
-  /// login type.
-  Future<void> checkHomeserverAction([_]) async {
-    printL("call: checkHomeserverAction");
-    homeserverController.text =
-        homeserverController.text.trim().toLowerCase().replaceAll(' ', '-');
-    if (homeserverController.text == _lastCheckedUrl) return;
-    _lastCheckedUrl = homeserverController.text;
-    setState(() {
-      error = _rawLoginTypes = loginHomeserverSummary = null;
-      isLoading = true;
-    });
+  Future<DiscoveryInformation> getWellknown(Uri homeServer) async {
+    final httpClient = PlatformInfos.isAndroid ? CustomHttpClient.createHTTPClient() : http.Client();
+    final requestUri = Uri(path: '.well-known/dynamic/client');
+    final request = http.Request('GET', homeServer.resolveUri(requestUri));
+    final response = await httpClient.send(request);
+    final responseBody = await response.stream.toBytes();
+    if (response.statusCode != 200) unexpectedResponse(response, responseBody);
+    final responseString = utf8.decode(responseBody);
+    final json = jsonDecode(responseString);
+    return DiscoveryInformation.fromJson(json as Map<String, Object?>);
+  }
 
+  Future<void> fetchHomeServer([_]) async {
+    printL("call: fetchHomeServer");
     try {
-      var homeserver = Uri.parse(homeserverController.text);
-      if (homeserver.scheme.isEmpty) {
-        homeserver = Uri.https(homeserverController.text, '');
+      var homeServer = Uri.parse(AppConfig.defaultHomeserver);
+      if (homeServer.scheme.isEmpty) {
+        homeServer = Uri.https(AppConfig.defaultHomeserver, '');
       }
       final client = Matrix.of(context).getLoginClient();
-      loginHomeserverSummary = await client.checkHomeserver(homeserver);
-      if (supportsSso) {
-        _rawLoginTypes = await client.request(
-          RequestType.GET,
-          '/client/r0/login',
-        );
+      if(AppConfig.defaultHomeserver.contains("yanxun.")){
+        client.homeserver = Uri.parse("https://matrix.yanxun.org:8448");
+        Logs().i('static home server: ${client.homeserver}');
+      }else{
+        // Look up well known
+        DiscoveryInformation? wellKnown;
+        try {
+          wellKnown = await getWellknown(homeServer);
+          client.homeserver = wellKnown.mHomeserver.baseUrl.stripTrailingSlash();
+          Logs().i('home server: ${client.homeserver}');
+        } catch (e) {
+          Logs().v('Found no well known information', e);
+        }
       }
     } catch (e) {
       setState(() => error = (e).toLocalizedString(context));
@@ -100,20 +108,20 @@ class HomeserverPickerController extends State<HomeserverPicker> {
     }
   }
 
-  HomeserverSummary? loginHomeserverSummary;
+  // HomeserverSummary? loginHomeserverSummary;
 
-  bool _supportsFlow(String flowType) =>
-      loginHomeserverSummary?.loginFlows.any((flow) => flow.type == flowType) ??
-      false;
+  // bool _supportsFlow(String flowType) =>
+  //     loginHomeserverSummary?.loginFlows.any((flow) => flow.type == flowType) ??
+  //     false;
 
-  bool get supportsSso => _supportsFlow('m.login.sso');
+  // bool get supportsSso => _supportsFlow('m.login.sso');
 
   bool isDefaultPlatform =
       (PlatformInfos.isMobile || PlatformInfos.isWeb || PlatformInfos.isMacOS);
 
-  bool get supportsPasswordLogin => _supportsFlow('m.login.password');
+  bool supportsPasswordLogin = true;
 
-  Map<String, dynamic>? _rawLoginTypes;
+  // Map<String, dynamic>? _rawLoginTypes;
 
   void ssoLoginAction(String id) async {
     final redirectUrl = kIsWeb
@@ -143,20 +151,20 @@ class HomeserverPickerController extends State<HomeserverPicker> {
     );
   }
 
-  List<IdentityProvider>? get identityProviders {
-    final loginTypes = _rawLoginTypes;
-    if (loginTypes == null) return null;
-    final rawProviders = loginTypes.tryGetList('flows')!.singleWhere(
-          (flow) => flow['type'] == AuthenticationTypes.sso,
-        )['identity_providers'];
-    final list = (rawProviders as List)
-        .map((json) => IdentityProvider.fromJson(json))
-        .toList();
-    if (PlatformInfos.isCupertinoStyle) {
-      list.sort((a, b) => a.brand == 'apple' ? -1 : 1);
-    }
-    return list;
-  }
+  // List<IdentityProvider>? get identityProviders {
+  //   final loginTypes = _rawLoginTypes;
+  //   if (loginTypes == null) return null;
+  //   final rawProviders = loginTypes.tryGetList('flows')!.singleWhere(
+  //         (flow) => flow['type'] == AuthenticationTypes.sso,
+  //       )['identity_providers'];
+  //   final list = (rawProviders as List)
+  //       .map((json) => IdentityProvider.fromJson(json))
+  //       .toList();
+  //   if (PlatformInfos.isCupertinoStyle) {
+  //     list.sort((a, b) => a.brand == 'apple' ? -1 : 1);
+  //   }
+  //   return list;
+  // }
 
   void login() => context.go('/home/login');
 
@@ -166,7 +174,7 @@ class HomeserverPickerController extends State<HomeserverPicker> {
   void initState() {
     _checkTorBrowser();
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback(checkHomeserverAction);
+    WidgetsBinding.instance.addPostFrameCallback(fetchHomeServer);
   }
 
   @override

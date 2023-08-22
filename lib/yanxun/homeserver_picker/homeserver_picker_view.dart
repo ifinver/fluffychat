@@ -15,7 +15,6 @@ class HomeserverPickerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final identityProviders = controller.identityProviders;
     final errorText = controller.error;
     return LoginScaffold(
       body: SafeArea(
@@ -91,35 +90,6 @@ class HomeserverPickerView extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 12),
-                        ],
-                        if (identityProviders != null) ...[
-                          ...identityProviders.map(
-                            (provider) => _LoginButton(
-                              icon: provider.icon == null
-                                  ? const Icon(Icons.open_in_new_outlined)
-                                  : Material(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(
-                                        AppConfig.borderRadius,
-                                      ),
-                                      clipBehavior: Clip.hardEdge,
-                                      child: MxcImage(
-                                        placeholder: (_) =>
-                                            const Icon(Icons.web_outlined),
-                                        uri: Uri.parse(provider.icon!),
-                                        width: 24,
-                                        height: 24,
-                                      ),
-                                    ),
-                              label: L10n.of(context)!.signInWith(
-                                provider.name ??
-                                    provider.brand ??
-                                    L10n.of(context)!.singlesignon,
-                              ),
-                              onPressed: () =>
-                                  controller.ssoLoginAction(provider.id!),
-                            ),
-                          ),
                         ],
                         if (controller.supportsPasswordLogin) ...[
                           _LoginButton(
