@@ -6,7 +6,6 @@ import 'package:fluffychat/config/app_config.dart';
 import 'package:fluffychat/widgets/layouts/login_scaffold.dart';
 import '../../config/themes.dart';
 import '../../widgets/mxc_image.dart';
-import 'homeserver_app_bar.dart';
 import 'homeserver_picker.dart';
 
 class HomeserverPickerView extends StatelessWidget {
@@ -122,18 +121,18 @@ class HomeserverPickerView extends StatelessWidget {
                             ),
                           ),
                         ],
-                        if (controller.supportsPasswordLogin)
+                        if (controller.supportsPasswordLogin) ...[
                           _LoginButton(
                             onPressed: controller.login,
                             icon: const Icon(Icons.login_outlined),
                             label: L10n.of(context).signInWithPassword,
                           ),
-                        if (controller.supportsPasswordLogin)
                           _LoginButton(
                             onPressed: controller.register,
                             icon: const Icon(Icons.app_registration_outlined),
                             label: L10n.of(context).registerWithPassword,
                           ),
+                        ],
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 12),
                           child: Center(

@@ -37,15 +37,15 @@ class LoginScaffold extends StatelessWidget {
       extendBodyBehindAppBar: true,
       extendBody: true,
       body: body,
-      bottomNavigationBar: isMobileMode
-          ? Material(
-              elevation: 4,
-              shadowColor: Theme.of(context).colorScheme.onBackground,
-              child: const _PrivacyButtons(
-                mainAxisAlignment: MainAxisAlignment.center,
-              ),
-            )
-          : null,
+      // bottomNavigationBar: isMobileMode
+      //     ? Material(
+      //         elevation: 4,
+      //         shadowColor: Theme.of(context).colorScheme.onBackground,
+      //         child: const _PrivacyButtons(
+      //           mainAxisAlignment: MainAxisAlignment.center,
+      //         ),
+      //       )
+      //     : null,
     );
     if (isMobileMode) return scaffold;
     return Container(
@@ -69,34 +69,38 @@ class LoginScaffold extends StatelessWidget {
                   child: ConstrainedBox(
                     constraints: isMobileMode
                         ? const BoxConstraints()
-                        : const BoxConstraints(maxWidth: 960, maxHeight: 640),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Expanded(
-                          child: Image.asset(
-                            'assets/login_wallpaper.png',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Container(
-                          width: 1,
-                          color: Theme.of(context).dividerTheme.color,
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: scaffold,
-                          ),
-                        ),
-                      ],
+                        : const BoxConstraints(maxWidth: 500, maxHeight: 400),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: scaffold,
                     ),
+                    // child: Row(
+                    //   crossAxisAlignment: CrossAxisAlignment.stretch,
+                    //   children: [
+                    //     Expanded(
+                    //       child: Image.asset(
+                    //         'assets/login_wallpaper.png',
+                    //         fit: BoxFit.cover,
+                    //       ),
+                    //     ),
+                    //     Container(
+                    //       width: 1,
+                    //       color: Theme.of(context).dividerTheme.color,
+                    //     ),
+                    //     Expanded(
+                    //       child: Padding(
+                    //         padding: const EdgeInsets.all(8.0),
+                    //         child: scaffold,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                   ),
                 ),
               ),
             ),
           ),
-          const _PrivacyButtons(mainAxisAlignment: MainAxisAlignment.end),
+          // const _PrivacyButtons(mainAxisAlignment: MainAxisAlignment.end),
         ],
       ),
     );
