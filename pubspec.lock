@@ -1577,10 +1577,10 @@ packages:
     dependency: transitive
     description:
       name: remove_emoji
-      sha256: d75024ae134328c38871c0fe73ada15ebeb635fca8903d039f5090a3e902c2b2
+      sha256: ed9e8463e8c9ca05b86fcddd4c0dbd2c2605a50d267f4ffa05496607924809e3
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.9"
+    version: "0.0.10"
   rxdart:
     dependency: transitive
     description:

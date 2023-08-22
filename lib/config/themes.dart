@@ -19,8 +19,8 @@ abstract class FluffyThemes {
       MediaQuery.of(context).size.width > FluffyThemes.columnWidth * 3.5;
 
   static const fallbackTextStyle = TextStyle(
-    fontFamily: 'Roboto',
-    fontFamilyFallback: ['NotoEmoji'],
+    fontFamily: 'PingFang SC',
+    fontFamilyFallback: ['-apple-system','BlinkMacSystemFont','"Segoe UI"','"Helvetica Neue"','Arial','\5b8b\4f53','sans-serif'],
   );
 
   static var fallbackTextTheme = const TextTheme(
