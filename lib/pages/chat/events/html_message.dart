@@ -5,7 +5,6 @@ import 'package:flutter_highlighter/flutter_highlighter.dart';
 import 'package:flutter_highlighter/themes/shades-of-purple.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html_table/flutter_html_table.dart';
-import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:linkify/linkify.dart';
 import 'package:matrix/matrix.dart';
 
@@ -332,15 +331,9 @@ class MatrixMathExtension extends HtmlExtension {
   InlineSpan build(ExtensionContext context) {
     final data = context.element?.attributes['data-mx-maths'] ?? '';
     return WidgetSpan(
-      child: Math.tex(
-        data,
-        textStyle: style,
-        onErrorFallback: (e) {
-          Logs().d('Flutter math parse error', e);
-          return Text(
-            data,
-            style: style,
-          );
+      child: StatefulBuilder(
+        builder: (context, setState) {
+          return Text(data);
         },
       ),
     );
