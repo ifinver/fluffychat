@@ -285,10 +285,10 @@ packages:
     dependency: "direct main"
     description:
       name: desktop_drop
-      sha256: "4ca4d960f4b11c032e9adfd2a0a8ac615bc3fddb4cbe73dcf840dd8077582186"
+      sha256: "222176827aa4799266800be4ef4e59a607b0fdb1f3a1b0cc6d1fa0a14469f9e3"
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.1"
+    version: "0.4.2"
   desktop_lifecycle:
     dependency: "direct main"
     description:
@@ -1149,14 +1149,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.7.1"
-  matrix_homeserver_recommendations:
-    dependency: "direct main"
-    description:
-      name: matrix_homeserver_recommendations
-      sha256: d372a7357676106897134dac67beb3ac2bb8753922fd0d808f18cf7e0574001a
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.0"
   meta:
     dependency: transitive
     description:
