@@ -37,6 +37,8 @@ import 'package:fluffychat/widgets/layouts/two_column_layout.dart';
 import 'package:fluffychat/widgets/log_view.dart';
 import 'package:fluffychat/widgets/matrix.dart';
 
+import '../yanxun/user/user_page.dart';
+
 abstract class AppRoutes {
   static FutureOr<String?> loggedInRedirect(
     BuildContext context,
@@ -57,6 +59,16 @@ abstract class AppRoutes {
       path: '/',
       redirect: (context, state) =>
           Matrix.of(context).client.isLogged() ? '/rooms' : '/home',
+    ),
+    GoRoute(
+      path: '/user/:userid',
+      pageBuilder: (context, state) => defaultPageBuilder(
+        context,
+        UserPage(
+          userId: state.pathParameters['userid']!,
+        ),
+      ),
+      redirect: loggedOutRedirect,
     ),
     GoRoute(
       path: '/home',
