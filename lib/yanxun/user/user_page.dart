@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../config/themes.dart';
 import '../../pages/user_bottom_sheet/user_bottom_sheet.dart';
 import '../../utils/adaptive_bottom_sheet.dart';
+import 'user_profile_sheet.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({super.key, required this.userId});
@@ -26,8 +27,9 @@ class _UserPageState extends State<UserPage> {
     }
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       showAdaptiveBottomSheet(
+        isDismissible:false,
         context: context,
-        builder: (c) => LoadProfileBottomSheet(
+        builder: (c) => LoadUserProfileBottomSheet(
           userId: userId,
           outerContext: context,
         ),
