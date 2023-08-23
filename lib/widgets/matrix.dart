@@ -77,9 +77,17 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
       widget.clients.add(getLoginClient());
     }
     if (_activeClient < 0 || _activeClient >= widget.clients.length) {
-      return currentBundle!.first!;
+      final c = currentBundle!.first!;
+      if(MatrixState.isHomeServerLoaded) {
+        c.homeserver = Uri.parse(MatrixState.homeServer);
+      }
+      return c;
     }
-    return widget.clients[_activeClient];
+    final c = widget.clients[_activeClient];
+    if(MatrixState.isHomeServerLoaded) {
+      c.homeserver = Uri.parse(MatrixState.homeServer);
+    }
+    return c;
   }
 
   VoipPlugin? voipPlugin;

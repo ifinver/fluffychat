@@ -76,7 +76,7 @@ abstract class AppConfig {
   static bool experimentalVoip = false;
   static const bool hideTypingUsernames = false;
   static const bool hideAllStateEvents = false;
-  static const String inviteLinkPrefix = 'https://matrix.to/#/';
+  static const String inviteLinkPrefix = 'https://yanxun.org/#/user/';
   static const String deepLinkPrefix = 'im.fluffychat://chat/';
   static const String schemePrefix = 'matrix:';
   static const String pushNotificationsChannelId = 'fluffychat_push';

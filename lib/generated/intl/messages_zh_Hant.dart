@@ -371,6 +371,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "loadingPleaseWait": MessageLookupByLibrary.simpleMessage("載入中… 請稍候。"),
         "logInTo": m47,
         "login": MessageLookupByLibrary.simpleMessage("登入"),
+        "loginOrRegister": MessageLookupByLibrary.simpleMessage("登錄/註冊"),
         "logout": MessageLookupByLibrary.simpleMessage("登出"),
         "makeSureTheIdentifierIsValid":
             MessageLookupByLibrary.simpleMessage("確保識別碼正確"),
@@ -509,6 +510,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "status": MessageLookupByLibrary.simpleMessage("狀態"),
         "statusExampleMessage": MessageLookupByLibrary.simpleMessage("今天過得如何？"),
         "submit": MessageLookupByLibrary.simpleMessage("送出"),
+        "sureToLogin":
+            MessageLookupByLibrary.simpleMessage("登錄或註冊之後才能發消息，要繼續嗎？"),
         "systemTheme": MessageLookupByLibrary.simpleMessage("自動"),
         "theyDontMatch": MessageLookupByLibrary.simpleMessage("它們不相符"),
         "theyMatch": MessageLookupByLibrary.simpleMessage("它們相符"),

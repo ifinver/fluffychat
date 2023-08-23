@@ -44,7 +44,7 @@ class HomeserverPickerView extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: MatrixState.isHomeServerLoaded
+              child: !MatrixState.isHomeServerLoaded
                   ? const Center(child: CircularProgressIndicator.adaptive())
                   : ListView(
                       children: [

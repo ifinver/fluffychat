@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fluffychat/yanxun/constants.dart';
 import 'package:fluffychat/yanxun/homeserver_picker/homeserver_picker.dart';
 import 'package:fluffychat/yanxun/register/register.dart';
 import 'package:flutter/cupertino.dart';
@@ -122,7 +123,14 @@ abstract class AppRoutes {
       routes: [
         GoRoute(
           path: '/rooms',
-          redirect: loggedOutRedirect,
+          redirect: (c,s) async{
+            final value = await readFromDb(dbkInvite);
+            if(value != null && value != ""){
+              // deleteFromDb(dbkInvite); //不删，等界面内删，界面内需要它来触发自动点击聊天
+              return "/user/$value";
+            }
+            return loggedOutRedirect(c,s);
+          },
           pageBuilder: (context, state) => defaultPageBuilder(
             context,
             FluffyThemes.isColumnMode(context)

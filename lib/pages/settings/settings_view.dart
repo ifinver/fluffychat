@@ -46,7 +46,7 @@ class SettingsView extends StatelessWidget {
               builder: (context, snapshot) {
                 final profile = snapshot.data;
                 final mxid =
-                    Matrix.of(context).client.userID ?? L10n.of(context)!.user;
+                    Matrix.of(context).client.userID?.localpart ?? L10n.of(context).user;
                 final displayname =
                     profile?.displayName ?? mxid.localpart ?? mxid;
                 return Row(

@@ -1186,6 +1186,8 @@
         "placeholders": {}
     },
     "login": "Login",
+    "sureToLogin": "You can only send message after login or register, continue?",
+    "loginOrRegister": "Login / Register",
     "@login": {
         "type": "text",
         "placeholders": {}
@@ -2486,7 +2488,7 @@
     "sorryThatsNotPossible": "Sorry... that is not possible",
     "deviceKeys": "Device keys:",
     "letsStart": "Let's start",
-    "enterInviteLinkOrMatrixId": "Enter invite link or Matrix ID...",
+    "enterInviteLinkOrMatrixId": "Enter invite link or User ID...",
     "reopenChat": "Reopen chat",
     "noBackupWarning": "Warning! Without enabling chat backup, you will lose access to your encrypted messages. It is highly recommended to enable the chat backup first before logging out.",
     "noOtherDevicesFound": "No other devices found",

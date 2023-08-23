@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:fluffychat/generated/l10n.dart';
 import 'package:go_router/go_router.dart';
+import 'package:matrix/matrix.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import 'package:fluffychat/pages/new_private_chat/new_private_chat.dart';
@@ -61,7 +62,7 @@ class NewPrivateChatView extends StatelessWidget {
                     children: [
                       QrImageView(
                         data:
-                            'https://matrix.to/#/${Matrix.of(context).client.userID}',
+                            'https://yanxun.org/#/user/${Matrix.of(context).client.userID?.localpart}',
                         version: QrVersions.auto,
                         size: qrCodeSize,
                       ),
@@ -115,8 +116,8 @@ class NewPrivateChatView extends StatelessWidget {
                       horizontal: 12,
                       vertical: 6,
                     ),
-                    labelText: L10n.of(context)!.enterInviteLinkOrMatrixId,
-                    hintText: '@username',
+                    labelText: L10n.of(context).enterInviteLinkOrMatrixId,
+                    hintText: 'username',
                     prefixText: NewPrivateChatController.prefixNoProtocol,
                     suffixIcon: IconButton(
                       icon: const Icon(Icons.send_outlined),

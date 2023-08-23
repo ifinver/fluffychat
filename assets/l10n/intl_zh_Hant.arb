@@ -11,6 +11,8 @@
         "placeholders": {}
     },
     "profileNotFound": "用戶不存在",
+    "sureToLogin": "登錄或註冊之後才能發消息，要繼續嗎？",
+    "loginOrRegister": "登錄/註冊",
     "acceptedTheInvitation": "{username}已接受邀請",
     "@acceptedTheInvitation": {
         "type": "text",

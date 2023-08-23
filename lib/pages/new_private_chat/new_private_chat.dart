@@ -1,3 +1,4 @@
+import 'package:fluffychat/yanxun/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -34,25 +35,27 @@ class NewPrivateChatController extends State<NewPrivateChat> {
 
   static const Set<String> supportedSigils = {'@', '!', '#'};
 
-  static const String prefix = 'https://matrix.to/#/';
-  static const String prefixNoProtocol = 'matrix.to/#/';
+  static const String prefix = 'https://yanxun.org/#/user/';
+  static const String prefixNoProtocol = 'yanxun.org/#/user/';
 
   void submitAction([_]) async {
     controller.text = controller.text.trim();
     if (!formKey.currentState!.validate()) return;
-    UrlLauncher(context, '$prefix${controller.text}').openMatrixToUrl();
+    final id = controller.text.toMatrixId();
+    UrlLauncher(context, '$prefix$id').openMatrixToUrl();
   }
 
   String? validateForm(String? value) {
     if (value!.isEmpty) {
-      return L10n.of(context)!.pleaseEnterAMatrixIdentifier;
+      return L10n.of(context).pleaseEnterAMatrixIdentifier;
     }
-    if (!controller.text.isValidMatrixId ||
-        !supportedSigils.contains(controller.text.sigil)) {
-      return L10n.of(context)!.makeSureTheIdentifierIsValid;
-    }
-    if (controller.text == Matrix.of(context).client.userID) {
-      return L10n.of(context)!.youCannotInviteYourself;
+    // if (!controller.text.isValidMatrixId ||
+    //     !supportedSigils.contains(controller.text.sigil)) {
+    //   return L10n.of(context)!.makeSureTheIdentifierIsValid;
+    // }
+    final id = controller.text.toMatrixId();
+    if (id == Matrix.of(context).client.userID) {
+      return L10n.of(context).youCannotInviteYourself;
     }
     return null;
   }

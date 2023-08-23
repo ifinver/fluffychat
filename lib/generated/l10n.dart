@@ -2522,6 +2522,26 @@ class L10n {
     );
   }
 
+  /// `You can only send message after login or register, continue?`
+  String get sureToLogin {
+    return Intl.message(
+      'You can only send message after login or register, continue?',
+      name: 'sureToLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Login / Register`
+  String get loginOrRegister {
+    return Intl.message(
+      'Login / Register',
+      name: 'loginOrRegister',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Log in to {homeserver}`
   String logInTo(Object homeserver) {
     return Intl.message(
@@ -5605,10 +5625,10 @@ class L10n {
     );
   }
 
-  /// `Enter invite link or Matrix ID...`
+  /// `Enter invite link or User ID...`
   String get enterInviteLinkOrMatrixId {
     return Intl.message(
-      'Enter invite link or Matrix ID...',
+      'Enter invite link or User ID...',
       name: 'enterInviteLinkOrMatrixId',
       desc: '',
       args: [],

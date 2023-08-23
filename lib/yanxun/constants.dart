@@ -12,6 +12,7 @@ import 'package:uuid/uuid.dart';
 
 final eventBus = EventBus();
 const String _dbName = "yanxun";
+const String dbkInvite = "invite_user";
 IdbFactory? _idbFactory;
 Database? _database;
 String _internalStoragePath = ""; //只有android和ios才有值
@@ -59,6 +60,14 @@ Future<String?> readFromDb(String key) async {
   return Future.value(value);
 }
 
+Future deleteFromDb(String key) async {
+  await initDatabase();
+  final txn = _database!.transaction(_dbName, idbModeReadWrite);
+  final store = txn.objectStore(_dbName);
+  await store.delete(key);
+  await txn.completed;
+}
+
 
 Future<String> deviceId() async{
   var did = await readFromDb("deviceId");
@@ -68,4 +77,17 @@ Future<String> deviceId() async{
     saveToDb("deviceId", did);
   }
   return did;
+}
+
+extension YanxunExt on String {
+  String toMatrixId() {
+    var id = this;
+    if(!contains("@")){
+      id = "@$id";
+    }
+    if(!id.contains(":")){
+      id = "$id:yanxun.org";
+    }
+    return id;
+  }
 }

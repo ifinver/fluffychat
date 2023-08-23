@@ -432,7 +432,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterAnEmailAddress":
             MessageLookupByLibrary.simpleMessage("输入一个电子邮件地址"),
         "enterInviteLinkOrMatrixId":
-            MessageLookupByLibrary.simpleMessage("输入邀请链接或 Matrix ID..."),
+            MessageLookupByLibrary.simpleMessage("输入邀请链接或用户ID..."),
         "enterRoom": MessageLookupByLibrary.simpleMessage("进入聊天室"),
         "enterSpace": MessageLookupByLibrary.simpleMessage("进入空间"),
         "enterYourHomeserver":
@@ -531,6 +531,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("位置权限被拒绝。请授予此权限以分享你的位置."),
         "logInTo": m47,
         "login": MessageLookupByLibrary.simpleMessage("登录"),
+        "loginOrRegister": MessageLookupByLibrary.simpleMessage("登录/注册"),
         "loginWithOneClick": MessageLookupByLibrary.simpleMessage("一键登录"),
         "logout": MessageLookupByLibrary.simpleMessage("注销"),
         "makeSureTheIdentifierIsValid":
@@ -773,6 +774,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "请注意，人们可以在你的 Story 中看到和联系彼此。你的故事在 24 小时内可见，但不能保证它们将从所有设备和服务器上删除。"),
         "submit": MessageLookupByLibrary.simpleMessage("提交"),
         "supposedMxid": m73,
+        "sureToLogin":
+            MessageLookupByLibrary.simpleMessage("登录或注册之后才能发消息，要继续吗？"),
         "switchToAccount": m74,
         "synchronizingPleaseWait":
             MessageLookupByLibrary.simpleMessage("同步中…请等待。"),

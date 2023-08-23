@@ -509,7 +509,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterAnEmailAddress":
             MessageLookupByLibrary.simpleMessage("Enter an email address"),
         "enterInviteLinkOrMatrixId": MessageLookupByLibrary.simpleMessage(
-            "Enter invite link or Matrix ID..."),
+            "Enter invite link or User ID..."),
         "enterRoom": MessageLookupByLibrary.simpleMessage("Enter room"),
         "enterSpace": MessageLookupByLibrary.simpleMessage("Enter space"),
         "enterYourHomeserver":
@@ -631,6 +631,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Location permission denied. Please grant them to be able to share your location."),
         "logInTo": m47,
         "login": MessageLookupByLibrary.simpleMessage("Login"),
+        "loginOrRegister":
+            MessageLookupByLibrary.simpleMessage("Login / Register"),
         "loginWithOneClick":
             MessageLookupByLibrary.simpleMessage("Sign in with one click"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
@@ -927,6 +929,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Please note that people can see and contact each other in your story. Your stories will be visible for 24 hours but there is no guarantee that they will be deleted from all devices and servers."),
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "supposedMxid": m73,
+        "sureToLogin": MessageLookupByLibrary.simpleMessage(
+            "You can only send message after login or register, continue?"),
         "switchToAccount": m74,
         "synchronizingPleaseWait":
             MessageLookupByLibrary.simpleMessage("Synchronizing… Please wait."),

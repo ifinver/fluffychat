@@ -1571,6 +1571,8 @@
     }
   },
   "profileNotFound": "用户不存在",
+  "sureToLogin": "登录或注册之后才能发消息，要继续吗？",
+  "loginOrRegister": "登录/注册",
   "sentAVideo": "🎥 {username} 发送了视频",
   "@sentAVideo": {
     "type": "text",
@@ -2478,7 +2480,7 @@
     "type": "text",
     "placeholders": {}
   },
-  "enterInviteLinkOrMatrixId": "输入邀请链接或 Matrix ID...",
+  "enterInviteLinkOrMatrixId": "输入邀请链接或用户ID...",
   "@enterInviteLinkOrMatrixId": {},
   "fileIsTooBigForServer": "服务器报告文件过大，无法发送。",
   "@fileIsTooBigForServer": {},

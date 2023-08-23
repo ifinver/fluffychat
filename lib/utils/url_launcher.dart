@@ -125,6 +125,57 @@ class UrlLauncher {
     );
   }
 
+  Uri? _parseIdentifierIntoUri(String url) {
+    const matrixUriPrefix = 'matrix:';
+    const matrixToPrefix = '#/user';
+    if (url.toLowerCase().startsWith(matrixUriPrefix)) {
+      final uri = Uri.tryParse(url);
+      if (uri == null) return null;
+      final pathSegments = uri.pathSegments;
+      final identifiers = <String>[];
+      for (var i = 0; i < pathSegments.length - 1; i += 2) {
+        final thisSigil = {
+          'u': '@',
+          'roomid': '!',
+          'r': '#',
+          'e': '\$',
+        }[pathSegments[i].toLowerCase()];
+        if (thisSigil == null) {
+          break;
+        }
+        identifiers.add(thisSigil + pathSegments[i + 1]);
+      }
+      return uri.replace(pathSegments: identifiers);
+    } else if (url.toLowerCase().contains(matrixToPrefix)) {
+      return Uri.tryParse(
+          '//${url.substring(url.indexOf(matrixToPrefix) + matrixToPrefix.length).replaceAllMapped(RegExp(r'(?<=/)[#!@+][^:]*:|(\?.*$)'), (m) => m[0]!.replaceAllMapped(RegExp(m.group(1) != null ? '' : '[/?]'), (m) => Uri.encodeComponent(m.group(0)!))).replaceAll('#', '%23')}');
+    } else {
+      return Uri(
+          pathSegments: RegExp(r'/((?:[#!@+][^:]*:)?[^/?]*)(?:\?.*$)?')
+              .allMatches('/$this')
+              .map((m) => m[1]!),
+          query: RegExp(r'(?:/(?:[#!@+][^:]*:)?[^/?]*)*\?(.*$)')
+              .firstMatch('/$this')?[1]);
+    }
+  }
+
+  MatrixIdentifierStringExtensionResults? parseIdentifierIntoParts(String url) {
+    final uri = _parseIdentifierIntoUri(url);
+    if (uri == null) return null;
+    final primary = uri.pathSegments.isNotEmpty ? uri.pathSegments[0] : null;
+    if (primary == null || !primary.isValidMatrixId) return null;
+    final secondary = uri.pathSegments.length > 1 ? uri.pathSegments[1] : null;
+    if (secondary != null && !secondary.isValidMatrixId) return null;
+
+    return MatrixIdentifierStringExtensionResults(
+      primaryIdentifier: primary,
+      secondaryIdentifier: secondary,
+      queryString: uri.query.isNotEmpty ? uri.query : null,
+      via: (uri.queryParametersAll['via'] ?? []).toSet(),
+      action: uri.queryParameters['action'],
+    );
+  }
+
   void openMatrixToUrl() async {
     final matrix = Matrix.of(context);
     final url = this.url!.replaceFirst(
@@ -135,12 +186,21 @@ class UrlLauncher {
     // The identifier might be a matrix.to url and needs escaping. Or, it might have multiple
     // identifiers (room id & event id), or it might also have a query part.
     // All this needs parsing.
-    final identityParts = url.parseIdentifierIntoParts() ??
-        Uri.tryParse(url)?.host.parseIdentifierIntoParts() ??
-        Uri.tryParse(url)
-            ?.pathSegments
-            .lastWhereOrNull((_) => true)
-            ?.parseIdentifierIntoParts();
+    MatrixIdentifierStringExtensionResults? identityParts;
+    if(url.contains("matrix.to")) {
+      identityParts = url.parseIdentifierIntoParts() ??
+          Uri
+              .tryParse(url)
+              ?.host
+              .parseIdentifierIntoParts() ??
+          Uri
+              .tryParse(url)
+              ?.pathSegments
+              .lastWhereOrNull((_) => true)
+              ?.parseIdentifierIntoParts();
+    }else{
+      identityParts = parseIdentifierIntoParts(url);
+    }
     if (identityParts == null) {
       return; // no match, nothing to do
     }
@@ -192,7 +252,7 @@ class UrlLauncher {
         await showAdaptiveBottomSheet(
           context: context,
           builder: (c) => PublicRoomBottomSheet(
-            roomAlias: identityParts.primaryIdentifier,
+            roomAlias: identityParts!.primaryIdentifier,
             outerContext: context,
           ),
         );
@@ -234,7 +294,7 @@ class UrlLauncher {
       await showAdaptiveBottomSheet(
         context: context,
         builder: (c) => LoadProfileBottomSheet(
-          userId: identityParts.primaryIdentifier,
+          userId: identityParts!.primaryIdentifier,
           outerContext: context,
         ),
       );
