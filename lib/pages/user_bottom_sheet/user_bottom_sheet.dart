@@ -34,7 +34,7 @@ class LoadProfileBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<ProfileInformation>(
-      future: Matrix.of(context)
+      future: Matrix.of(outerContext)
           .client
           .getUserProfile(userId)
           .timeout(const Duration(seconds: 3)),
