@@ -49,7 +49,7 @@ class _UserPageState extends State<UserPage> {
           if (value != null && value != "") {
             deleteFromDb(dbkInvite);
             if (value == showId) {
-              //todo sendAMesage
+              sendMessage();
             }
           }
         });
