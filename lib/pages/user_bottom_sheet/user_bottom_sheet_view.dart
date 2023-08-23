@@ -24,6 +24,12 @@ class UserBottomSheetView extends StatelessWidget {
 
     final client = Matrix.of(controller.widget.outerContext).client;
     final profileSearchError = controller.widget.profileSearchError;
+    var notFount = false;
+    if(profileSearchError is MatrixException){
+      if(MatrixError.M_NOT_FOUND.toString().contains(profileSearchError.errcode)){
+        notFount = true;
+      }
+    }
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -130,7 +136,7 @@ class UserBottomSheetView extends StatelessWidget {
                 ),
               ],
             ),
-            if (userId != client.userID)
+            if (userId != client.userID && !notFount)
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16.0,
@@ -193,13 +199,13 @@ class UserBottomSheetView extends StatelessWidget {
               ),
             if (profileSearchError != null)
               ListTile(
-                leading: const Icon(
+                leading: Icon(
                   Icons.warning_outlined,
-                  color: Colors.orange,
+                  color: notFount ? Colors.red : Colors.orange,
                 ),
                 subtitle: Text(
-                  L10n.of(context)!.profileNotFound,
-                  style: const TextStyle(color: Colors.orange),
+                  L10n.of(context).profileNotFound,
+                  style: TextStyle(color: notFount ? Colors.red : Colors.orange),
                 ),
               ),
           ],

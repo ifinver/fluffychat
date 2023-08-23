@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:matrix/matrix.dart';
 import '../../widgets/matrix.dart';
 
-class LoadUserProfileBottomSheet extends StatelessWidget {
+class LoadUserProfileBottomSheet extends StatefulWidget {
   final String userId;
   final BuildContext outerContext;
 
@@ -15,50 +15,73 @@ class LoadUserProfileBottomSheet extends StatelessWidget {
     required this.outerContext,
   });
 
+
+
+  @override
+  State<StatefulWidget> createState() => LoadUserProfileBottomSheetState();
+}
+
+class LoadUserProfileBottomSheetState extends State<LoadUserProfileBottomSheet>{
+
+  ProfileInformation? snapshot;
+  Object? error;
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    Matrix.of(widget.outerContext)
+        .client
+        .getUserProfile(widget.userId)
+        .timeout(const Duration(seconds: 30)).then((value){
+      setState(() {
+        isLoading = false;
+        snapshot = value;
+      });
+    }).catchError((err){
+      setState(() {
+        isLoading = false;
+        snapshot = null;
+        error = err;
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<ProfileInformation>(
-      future: Matrix.of(outerContext)
-          .client
-          .getUserProfile(userId)
-          .timeout(const Duration(seconds: 3)),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState != ConnectionState.done) {
-          return Scaffold(
-            appBar: AppBar(
-              leading: CloseButton(
-                onPressed: (){
-                  Navigator.of(context, rootNavigator: false).pop();
-                  outerContext.go('/rooms');
-                },
-              ),
-            ),
-            body: const Center(
-              child: CircularProgressIndicator.adaptive(),
-            ),
-          );
-        }
-        return UserBottomSheet(
-          outerContext: outerContext,
-          profile: Profile(
-            userId: userId,
-            avatarUrl: snapshot.data?.avatarUrl,
-            displayName: snapshot.data?.displayname,
-          ),
-          profileSearchError: snapshot.error,
-        );
-      },
+    final outerContext = widget.outerContext;
+    final userId = widget.userId;
+    return isLoading ? Scaffold(
+      appBar: AppBar(
+        leading: CloseButton(
+          onPressed: (){
+            Navigator.of(context, rootNavigator: false).pop();
+            outerContext.go('/rooms');
+          },
+        ),
+      ),
+      body: const Center(
+        child: CircularProgressIndicator.adaptive(),
+      ),
+    ):UserProfileSheet(
+      outerContext: outerContext,
+      profile: Profile(
+        userId: userId,
+        avatarUrl: snapshot?.avatarUrl,
+        displayName: snapshot?.displayname,
+      ),
+      profileSearchError: error,
     );
   }
 }
 
-class UserBottomSheet extends StatefulWidget {
+class UserProfileSheet extends StatefulWidget {
   final User? user;
   final Profile? profile;
   final BuildContext outerContext;
   final Object? profileSearchError;
 
-  const UserBottomSheet({
+  const UserProfileSheet({
     Key? key,
     this.user,
     this.profile,
@@ -71,7 +94,7 @@ class UserBottomSheet extends StatefulWidget {
   UserProfileSheetController createState() => UserProfileSheetController();
 }
 
-class UserProfileSheetController extends State<UserBottomSheet> {
+class UserProfileSheetController extends State<UserProfileSheet> {
 
   void sendMessage() async {
     final user = widget.user;

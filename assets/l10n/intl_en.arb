@@ -2515,7 +2515,7 @@
             "provider": {}
         }
     },
-  "profileNotFound": "The user could not be found on the server. Maybe there is a connection problem or the user doesn't exist.",
+  "profileNotFound": "The user could not be found on the server.",
   "setTheme": "Set theme:",
   "setColorTheme": "Set color theme:",
   "invite": "Invite"

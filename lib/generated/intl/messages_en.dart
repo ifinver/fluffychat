@@ -777,7 +777,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Previous account"),
         "privacy": MessageLookupByLibrary.simpleMessage("Privacy"),
         "profileNotFound": MessageLookupByLibrary.simpleMessage(
-            "The user could not be found on the server. Maybe there is a connection problem or the user doesn\'t exist."),
+            "The user could not be found on the server."),
         "publicRooms": MessageLookupByLibrary.simpleMessage("Public Rooms"),
         "publish": MessageLookupByLibrary.simpleMessage("Publish"),
         "pushRules": MessageLookupByLibrary.simpleMessage("Push rules"),

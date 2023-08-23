@@ -5775,10 +5775,10 @@ class L10n {
     );
   }
 
-  /// `The user could not be found on the server. Maybe there is a connection problem or the user doesn't exist.`
+  /// `The user could not be found on the server.`
   String get profileNotFound {
     return Intl.message(
-      'The user could not be found on the server. Maybe there is a connection problem or the user doesn\'t exist.',
+      'The user could not be found on the server.',
       name: 'profileNotFound',
       desc: '',
       args: [],

@@ -1570,6 +1570,7 @@
       "username": {}
     }
   },
+  "profileNotFound": "用户未找到.",
   "sentAVideo": "🎥 {username} 发送了视频",
   "@sentAVideo": {
     "type": "text",

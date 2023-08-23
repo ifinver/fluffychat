@@ -37,7 +37,7 @@ class LoadProfileBottomSheet extends StatelessWidget {
       future: Matrix.of(outerContext)
           .client
           .getUserProfile(userId)
-          .timeout(const Duration(seconds: 3)),
+          .timeout(const Duration(seconds: 30)),
       builder: (context, snapshot) {
         if (snapshot.connectionState != ConnectionState.done) {
           return Scaffold(
