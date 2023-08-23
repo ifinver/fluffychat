@@ -36,10 +36,6 @@ class HomeserverPicker extends StatefulWidget {
 }
 
 class HomeserverPickerController extends State<HomeserverPicker> {
-  bool isLoading = false;
-
-  String? error;
-
   bool isTorBrowser = false;
 
   Future<void> _checkTorBrowser() async {
@@ -59,53 +55,6 @@ class HomeserverPickerController extends State<HomeserverPicker> {
 
     final isTor = await TorBrowserDetector.isTorBrowser;
     isTorBrowser = isTor;
-  }
-
-  Never unexpectedResponse(http.BaseResponse response, Uint8List body) {
-    throw Exception('http error response');
-  }
-
-  Future<DiscoveryInformation> getWellKnownDynamic(Uri homeServer) async {
-    final httpClient = PlatformInfos.isAndroid ? CustomHttpClient.createHTTPClient() : http.Client();
-    final requestUri = Uri(path: '.well-known/dynamic/client');
-    final request = http.Request('GET', homeServer.resolveUri(requestUri));
-    final response = await httpClient.send(request);
-    final responseBody = await response.stream.toBytes();
-    if (response.statusCode != 200) unexpectedResponse(response, responseBody);
-    final responseString = utf8.decode(responseBody);
-    final json = jsonDecode(responseString);
-    return DiscoveryInformation.fromJson(json as Map<String, Object?>);
-  }
-
-  Future<void> fetchHomeServer([_]) async {
-    printL("call: fetchHomeServer");
-    try {
-      var homeServer = Uri.parse(AppConfig.defaultHomeserver);
-      if (homeServer.scheme.isEmpty) {
-        homeServer = Uri.https(AppConfig.defaultHomeserver, '');
-      }
-      final client = Matrix.of(context).getLoginClient();
-      if(AppConfig.defaultHomeserver.contains("yanxun.")){
-        client.homeserver = Uri.parse("https://matrix.yanxun.org:8448");
-        Logs().i('static home server: ${client.homeserver}');
-      }else{
-        // Look up well known
-        DiscoveryInformation? wellKnown;
-        try {
-          wellKnown = await getWellKnownDynamic(homeServer);
-          client.homeserver = wellKnown.mHomeserver.baseUrl.stripTrailingSlash();
-          Logs().i('home server: ${client.homeserver}');
-        } catch (e) {
-          Logs().v('Found no well known information', e);
-        }
-      }
-    } catch (e) {
-      setState(() => error = (e).toLocalizedString(context));
-    } finally {
-      if (mounted) {
-        setState(() => isLoading = false);
-      }
-    }
   }
 
   // HomeserverSummary? loginHomeserverSummary;
@@ -174,7 +123,6 @@ class HomeserverPickerController extends State<HomeserverPicker> {
   void initState() {
     _checkTorBrowser();
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback(fetchHomeServer);
   }
 
   @override

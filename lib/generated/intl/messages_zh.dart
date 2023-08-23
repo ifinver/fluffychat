@@ -654,7 +654,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("请稍后再试或选择其它服务器。"),
         "previousAccount": MessageLookupByLibrary.simpleMessage("上个账户"),
         "privacy": MessageLookupByLibrary.simpleMessage("隐私"),
-        "profileNotFound": MessageLookupByLibrary.simpleMessage("用户未找到."),
+        "profileNotFound": MessageLookupByLibrary.simpleMessage("用户不存在"),
         "publicRooms": MessageLookupByLibrary.simpleMessage("公开聊天室"),
         "publish": MessageLookupByLibrary.simpleMessage("发布"),
         "pushRules": MessageLookupByLibrary.simpleMessage("推送规则"),

@@ -29,6 +29,7 @@ import '../config/setting_keys.dart';
 import '../pages/key_verification/key_verification_dialog.dart';
 import '../utils/account_bundles.dart';
 import '../utils/background_push.dart';
+import '../utils/custom_http_client.dart';
 import '../utils/famedlysdk_store.dart';
 import 'local_notifications_extension.dart';
 
@@ -57,6 +58,9 @@ class Matrix extends StatefulWidget {
 }
 
 class MatrixState extends State<Matrix> with WidgetsBindingObserver {
+  static String? homeServerError;
+  static bool isHomeServerLoaded = false;
+  static String homeServer = "";
   int _activeClient = -1;
   String? activeBundle;
   Store store = Store();
@@ -241,6 +245,7 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(_fetchHomeServer);
     WidgetsBinding.instance.addObserver(this);
     initMatrix();
     if (PlatformInfos.isWeb) {
@@ -249,6 +254,55 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
       initSettings();
     }
     initLoadingDialog();
+  }
+
+  Never _unexpectedResponse(http.BaseResponse response, Uint8List body) {
+    throw Exception('http error response');
+  }
+
+  Future<DiscoveryInformation> _getWellKnownDynamic(Uri homeServer) async {
+    final httpClient = PlatformInfos.isAndroid ? CustomHttpClient.createHTTPClient() : http.Client();
+    final requestUri = Uri(path: '.well-known/dynamic/client');
+    final request = http.Request('GET', homeServer.resolveUri(requestUri));
+    final response = await httpClient.send(request);
+    final responseBody = await response.stream.toBytes();
+    if (response.statusCode != 200) _unexpectedResponse(response, responseBody);
+    final responseString = utf8.decode(responseBody);
+    final json = jsonDecode(responseString);
+    return DiscoveryInformation.fromJson(json as Map<String, Object?>);
+  }
+
+  Future<void> _fetchHomeServer([_]) async {
+    Logs().i("call: fetchHomeServer");
+    try {
+      var homeServer = Uri.parse(AppConfig.defaultHomeserver);
+      if (homeServer.scheme.isEmpty) {
+        homeServer = Uri.https(AppConfig.defaultHomeserver, '');
+      }
+      final client = getLoginClient();
+      if(AppConfig.defaultHomeserver.contains("yanxun.")){
+        MatrixState.homeServer = "https://matrix.yanxun.org:8448";
+        client.homeserver = Uri.parse(MatrixState.homeServer);
+        Logs().i('static home server: ${client.homeserver}');
+      }else{
+        // Look up well known
+        DiscoveryInformation? wellKnown;
+        try {
+          wellKnown = await _getWellKnownDynamic(homeServer);
+          MatrixState.homeServer = wellKnown.mHomeserver.baseUrl.stripTrailingSlash().toString();
+          client.homeserver = Uri.parse(MatrixState.homeServer);
+          Logs().i('home server: ${client.homeserver}');
+        } catch (e) {
+          Logs().v('Found no well known information', e);
+        }
+      }
+    } catch (e) {
+      setState(() => homeServerError = (e).toLocalizedString(context));
+    } finally {
+      if (mounted) {
+        setState(() => isHomeServerLoaded = true);
+      }
+    }
   }
 
   void initLoadingDialog() {

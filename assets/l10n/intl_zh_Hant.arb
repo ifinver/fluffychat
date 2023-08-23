@@ -10,7 +10,7 @@
         "type": "text",
         "placeholders": {}
     },
-    "profileNotFound": "用戶未找到.",
+    "profileNotFound": "用戶不存在",
     "acceptedTheInvitation": "{username}已接受邀請",
     "@acceptedTheInvitation": {
         "type": "text",

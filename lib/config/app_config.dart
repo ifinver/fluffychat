@@ -94,7 +94,7 @@ abstract class AppConfig {
   static const double columnWidth = 360.0;
 
   static void loadFromJson(Map<String, dynamic> json) async {
-    printL("call: config loadFromJson");
+    Logs().i("call: config loadFromJson");
     if (json['chat_color'] != null) {
       try {
         colorSchemeSeed = Color(json['chat_color']);

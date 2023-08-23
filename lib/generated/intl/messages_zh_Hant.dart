@@ -450,7 +450,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "pleaseFollowInstructionsOnWeb":
             MessageLookupByLibrary.simpleMessage("請按照網站上的說明進行操作，然後點擊下一步。"),
         "privacy": MessageLookupByLibrary.simpleMessage("隱私"),
-        "profileNotFound": MessageLookupByLibrary.simpleMessage("用戶未找到."),
+        "profileNotFound": MessageLookupByLibrary.simpleMessage("用戶不存在"),
         "publicRooms": MessageLookupByLibrary.simpleMessage("公開的聊天室"),
         "pushRules": MessageLookupByLibrary.simpleMessage("推播規則"),
         "reason": MessageLookupByLibrary.simpleMessage("原因"),

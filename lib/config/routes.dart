@@ -68,7 +68,6 @@ abstract class AppRoutes {
           userId: state.pathParameters['userid']!,
         ),
       ),
-      redirect: loggedOutRedirect,
     ),
     GoRoute(
       path: '/home',

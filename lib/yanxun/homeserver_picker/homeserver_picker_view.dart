@@ -1,11 +1,10 @@
+import 'package:fluffychat/widgets/matrix.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fluffychat/generated/l10n.dart';
 
-import 'package:fluffychat/config/app_config.dart';
 import 'package:fluffychat/widgets/layouts/login_scaffold.dart';
 import '../../config/themes.dart';
-import '../../widgets/mxc_image.dart';
 import 'homeserver_picker.dart';
 
 class HomeserverPickerView extends StatelessWidget {
@@ -15,7 +14,7 @@ class HomeserverPickerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final errorText = controller.error;
+    final errorText = MatrixState.homeServerError;
     return LoginScaffold(
       body: SafeArea(
         child: Column(
@@ -45,7 +44,7 @@ class HomeserverPickerView extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: controller.isLoading
+              child: MatrixState.isHomeServerLoaded
                   ? const Center(child: CircularProgressIndicator.adaptive())
                   : ListView(
                       children: [

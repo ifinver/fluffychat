@@ -28,8 +28,10 @@ class UserProfileSheetView extends StatelessWidget {
     final client = Matrix.of(controller.widget.outerContext).client;
     final profileSearchError = controller.widget.profileSearchError;
     var notFount = false;
-    if(profileSearchError is MatrixException){
-      if(MatrixError.M_NOT_FOUND.toString().contains(profileSearchError.errcode)){
+    if (profileSearchError is MatrixException) {
+      if (MatrixError.M_NOT_FOUND
+          .toString()
+          .contains(profileSearchError.errcode)) {
         notFount = true;
       }
     }
@@ -37,7 +39,7 @@ class UserProfileSheetView extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           leading: CloseButton(
-            onPressed: (){
+            onPressed: () {
               Navigator.of(context, rootNavigator: false).pop();
               controller.widget.outerContext.go('/rooms');
             },
@@ -134,16 +136,21 @@ class UserProfileSheetView extends StatelessWidget {
                 ),
               ),
             if (profileSearchError != null)
-              ListTile(
-                leading: Icon(
-                  Icons.warning_outlined,
-                  color: notFount ? Colors.red : Colors.orange,
-                ),
-                subtitle: Text(
-                  L10n.of(context).profileNotFound,
-                  style: TextStyle(color: notFount ? Colors.red : Colors.orange),
-                ),
-              ),
+              Row(
+                children: [
+                  const SizedBox(width: 20,),
+                  Icon(
+                    Icons.warning_outlined,
+                    color: notFount ? Colors.red : Colors.orange,
+                    size: 20,
+                  ),
+                  Text(
+                    L10n.of(context).profileNotFound,
+                    style:
+                    TextStyle(color: notFount ? Colors.red : Colors.orange),
+                  )
+                ],
+              )
           ],
         ),
       ),

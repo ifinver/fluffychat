@@ -1,5 +1,6 @@
 import 'package:fluffychat/yanxun/user/user_profile_sheet_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:future_loading_dialog/future_loading_dialog.dart';
 import 'package:go_router/go_router.dart';
 import 'package:matrix/matrix.dart';
@@ -21,14 +22,14 @@ class LoadUserProfileBottomSheet extends StatefulWidget {
   State<StatefulWidget> createState() => LoadUserProfileBottomSheetState();
 }
 
-class LoadUserProfileBottomSheetState extends State<LoadUserProfileBottomSheet>{
+class LoadUserProfileBottomSheetState extends State<LoadUserProfileBottomSheet> with AutomaticKeepAliveClientMixin{
 
   ProfileInformation? snapshot;
   Object? error;
   bool isLoading = true;
+  bool isStarted = false;
 
-  @override
-  void initState() {
+  void _loadUser() {
     Matrix.of(widget.outerContext)
         .client
         .getUserProfile(widget.userId)
@@ -44,11 +45,17 @@ class LoadUserProfileBottomSheetState extends State<LoadUserProfileBottomSheet>{
         error = err;
       });
     });
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+    if(MatrixState.isHomeServerLoaded){
+      if(!isStarted){
+        isStarted = true;
+        _loadUser();
+      }
+    }
     final outerContext = widget.outerContext;
     final userId = widget.userId;
     return isLoading ? Scaffold(
@@ -73,9 +80,12 @@ class LoadUserProfileBottomSheetState extends State<LoadUserProfileBottomSheet>{
       profileSearchError: error,
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
-class UserProfileSheet extends StatefulWidget {
+class UserProfileSheet extends StatefulWidget{
   final User? user;
   final Profile? profile;
   final BuildContext outerContext;

@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:idb_shim/idb.dart';
 import 'package:idb_shim/idb_browser.dart';
 import 'package:idb_shim/idb_io.dart';
+import 'package:matrix/matrix.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:uuid/uuid.dart';
@@ -15,12 +16,6 @@ IdbFactory? _idbFactory;
 Database? _database;
 String _internalStoragePath = ""; //只有android和ios才有值
 
-void printL(Object? object) {
-  if (kDebugMode) {
-    print(object);
-  }
-}
-
 Future<void> initDatabase() async {
   if (kIsWeb) {
     _idbFactory ??= getIdbFactory();
@@ -30,9 +25,9 @@ Future<void> initDatabase() async {
         final Directory dc = await getApplicationSupportDirectory();
         _internalStoragePath = dc.path;
       }catch (e){
-        printL(e.toString());
+        Logs().i(e.toString());
       }
-      printL("doc path : $_internalStoragePath");
+      Logs().i("doc path : $_internalStoragePath");
       _idbFactory ??= getIdbFactoryPersistent('$_internalStoragePath/db');
     }
   }
@@ -44,7 +39,7 @@ Future<void> initDatabase() async {
         db.createObjectStore(_dbName, autoIncrement: true);
       },
   );
-  // printL("database init done.");
+  // Logs().i("database init done.");
 }
 
 Future saveToDb(String k, String value) async {
