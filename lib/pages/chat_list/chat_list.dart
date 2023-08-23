@@ -371,6 +371,20 @@ class ChatListController extends State<ChatList>
     }
   }
 
+  void _waitClientPrevBatchChanged([bool wait = false]){
+    final client = Matrix.of(context).client;
+    if(client.prevBatch == null){
+      Future.delayed(const Duration(seconds: 1),(){
+        _waitClientPrevBatchChanged(true);
+      });
+    }else{
+      if(wait){
+        setState(() {
+        });
+      }
+    }
+  }
+
   @override
   void initState() {
     _initReceiveSharingIntent();
@@ -387,6 +401,8 @@ class ChatListController extends State<ChatList>
     });
 
     _checkTorBrowser();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {_waitClientPrevBatchChanged();});
 
     super.initState();
   }

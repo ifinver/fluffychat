@@ -1,15 +1,15 @@
 import 'dart:io';
 
-import 'package:device_info_plus/device_info_plus.dart';
+import 'package:event_bus/event_bus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:idb_shim/idb.dart';
 import 'package:idb_shim/idb_browser.dart';
 import 'package:idb_shim/idb_io.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../utils/platform_infos.dart';
 import 'package:uuid/uuid.dart';
 
+final eventBus = EventBus();
 const String _dbName = "yanxun";
 IdbFactory? _idbFactory;
 Database? _database;

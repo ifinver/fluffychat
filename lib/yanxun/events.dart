@@ -1,1 +1,2 @@
 class EventHomeServerUrlLoaded {}
+class EventClientPrevBatchChanged {}
