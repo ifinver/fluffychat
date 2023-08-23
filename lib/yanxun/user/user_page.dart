@@ -26,16 +26,36 @@ class _UserPageState extends State<UserPage> {
   ProfileInformation? snapshot;
   Object? error;
   bool isLoading = true;
-  bool isStarted = false;
   Profile? profile;
   Object? profileSearchError;
 
+  void _detectLoading([bool refresh = false]){
+    if (MatrixState.isHomeServerLoaded) {
+      if(refresh){
+        setState(() {
+        });
+      }
+    }else{
+      Future.delayed(const Duration(seconds: 1),(){
+        _detectLoading(true);
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    _detectLoading();
+    super.initState();
+  }
+
   void _loadUser() {
+    Logs().i("user page call _loadUser()");
     Matrix.of(context)
         .client
         .getUserProfile(showId)
         .timeout(const Duration(seconds: 30))
         .then((value) {
+      Logs().i("user page call _loadUser() return nice");
       setState(() {
         error = null;
         isLoading = false;
@@ -55,6 +75,7 @@ class _UserPageState extends State<UserPage> {
         });
       });
     }).catchError((err) {
+      Logs().i("user page call _loadUser() error :$err");
       setState(() {
         isLoading = false;
         snapshot = null;
@@ -102,16 +123,11 @@ class _UserPageState extends State<UserPage> {
     return userId;
   }
 
+
+
   @override
   Widget build(BuildContext context) {
-    if (MatrixState.isHomeServerLoaded) {
-      final fid = _formatUserId();
-      if (showId != fid) {
-        showId = fid;
-        isLoading = true;
-        _loadUser();
-      }
-    }
+    _tryLoad();
     final displayName = profile?.displayName ?? _formatUserId().localpart;
     final avatarUrl = profile?.avatarUrl;
     final client = Matrix.of(context).client;
@@ -294,5 +310,19 @@ class _UserPageState extends State<UserPage> {
         ),
       ),
     );
+  }
+
+  void _tryLoad() {
+    Logs().i("user page call _tryLoad()");
+    if (MatrixState.isHomeServerLoaded) {
+      Logs().i("user page call _tryLoad() isHomeServerLoaded");
+      final fid = _formatUserId();
+      if (showId != fid) {
+        Logs().i("user page call _tryLoad() showId != fid");
+        showId = fid;
+        isLoading = true;
+        _loadUser();
+      }
+    }
   }
 }

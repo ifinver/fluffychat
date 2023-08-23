@@ -305,6 +305,7 @@ class MatrixState extends State<Matrix> with WidgetsBindingObserver {
         }
       }
     } catch (e) {
+      Logs().e('home server: ${client.homeserver} err: $e}');
       setState(() => homeServerError = (e).toLocalizedString(context));
     } finally {
       if (mounted) {
