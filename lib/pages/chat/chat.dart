@@ -230,10 +230,11 @@ class ChatController extends State<ChatPageWithRoom> {
 
   void requestHistory() async {
     if (!timeline!.canRequestHistory) return;
-    Logs().v('Requesting history...');
+    Logs().w('Requesting history.....');
     try {
       await timeline!.requestHistory(historyCount: _loadHistoryCount);
     } catch (err) {
+      Logs().w('Requesting history err : $err');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
@@ -1243,11 +1244,15 @@ class ChatController extends State<ChatPageWithRoom> {
       future: () =>
           Matrix.of(context).voipPlugin!.voip.requestTurnServerCredentials(),
     );
+    Logs().w("---requestTurnServerCredentials $success");
     if (success.result != null) {
+      Logs().w("---start to invite to call");
       final voipPlugin = Matrix.of(context).voipPlugin;
       try {
         await voipPlugin!.voip.inviteToCall(room.id, callType);
+        Logs().w("---invite finish");
       } catch (e) {
+        Logs().w("---invite error:$e");
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(e.toLocalizedString(context))),
         );
